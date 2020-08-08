@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { MatNativeDateModule } from '@angular/material/core';
-import { MatIconRegistry } from '@angular/material/icon';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
@@ -97,7 +96,6 @@ import { MatDividerModule } from '@angular/material/divider';
         MatToolbarModule,
         MatTooltipModule,
         MatTreeModule,
-        MatIconRegistry,
     ]
 })
 export class MaterialModule { }
