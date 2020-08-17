@@ -9,11 +9,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AddPostComponent } from './AddingPost/AddPost/AddPost.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToolbarComponent } from './Toolbar/toolbar/toolbar.component';
+import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AddPostComponent
+    AddPostComponent,
+    ToolbarComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +32,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   entryComponents: [
     AddPostComponent
   ],
-  providers: [],
+  providers: [
+    { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
