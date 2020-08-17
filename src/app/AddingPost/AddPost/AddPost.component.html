@@ -14,6 +14,6 @@
   </mat-card-content>
   <mat-card-actions class="text-right">
     <button mat-raised-button color="warn" (click)="closeDialog()">Cancel</button>
-    <button mat-raised-button color="primary" cdkFocusInitial>Add</button>
+    <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial>Add</button>
   </mat-card-actions>
 </mat-card>
