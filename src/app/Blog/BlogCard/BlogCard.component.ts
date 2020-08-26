@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { BloggerService } from 'src/services/Blogger.service';
-import { AuthService } from 'src/services/Auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
@@ -57,7 +56,7 @@ export class BlogCardComponent implements OnInit {
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnChanges(changes: SimpleChanges) {
     for (const property in changes) {
-      if (property === 'count') {
+      if (property === 'filterFunction') {
         // console.log('Previous: ', changes[property].previousValue);
         // console.log('Current: ', changes[property].currentValue);
         // console.log('firstChange: ', changes[property].firstChange);
