@@ -10,13 +10,41 @@ import { HttpClientModule } from '@angular/common/http';
 import { AddPostComponent } from './AddingPost/AddPost/AddPost.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToolbarComponent } from './Toolbar/toolbar/toolbar.component';
-import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
+import { ContentComponent } from './AddingPost/content/content.component';
+import { HomeComponent } from './AddingPost/home/home.component';
+import { NavigationComponent } from './Toolbar/navigation/navigation.component';
+import { CKEditorModule } from 'ng2-ckeditor';
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from 'src/environments/environment';
+import * as firebase from 'firebase/app';
+import { AuthService } from 'src/services/Auth.service';
+import { JwtHelperService, JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { AuthGuardService } from 'src/guard/Auth-Guard.service';
+import { RoleGuardService } from 'src/guard/Role-Guard.service';
+import { AuthorProfileComponent } from 'src/app/Author/AuthorProfile/AuthorProfile.component';
+import { ProfileCardComponent } from 'src/app/Author/ProfileCard/ProfileCard.component';
+import { ExcerptPipe } from './customPipes/excerpt.pipe';
+import { SlugPipe } from './customPipes/slug.pipe';
+import { BlogCardComponent } from 'src/app/Blog/BlogCard/BlogCard.component';
+
+firebase.initializeApp(environment.firebaseConfig);
 
 @NgModule({
   declarations: [
     AppComponent,
     AddPostComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    ContentComponent,
+    HomeComponent,
+    NavigationComponent,
+    AuthorProfileComponent,
+    ProfileCardComponent,
+    BlogCardComponent,
+    ExcerptPipe,
+    SlugPipe
   ],
   imports: [
     BrowserModule,
@@ -27,13 +55,20 @@ import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    CKEditorModule,
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
+    AngularFireMessagingModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    JwtModule
   ],
-  entryComponents: [
-    AddPostComponent
-  ],
+  entryComponents: [ProfileCardComponent],
   providers: [
-    { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } }
+    AuthService,
+    JwtHelperService, { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    AuthGuardService,
+    RoleGuardService
   ],
   bootstrap: [AppComponent]
 })

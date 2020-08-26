@@ -1,0 +1,35 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'over'">
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item href="#">Link 1</a>
+      <a mat-list-item href="#">Link 2</a>
+      <a mat-list-item href="#">Link 3</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary" class="mat-elevation-z24 toolbar">
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>BloggingSite</span>
+      <span class="spacer"></span>
+      <button style="border-radius: 20px;margin-left:2px;margin-right:2px;" mat-raised-button
+        [routerLink]="['/addpost']" routerLinkActive="router-link-active" color="accent" type="button"> Add
+        Post</button>
+      <button style="border-radius: 20px;margin-left:2px;margin-right:2px;" mat-raised-button color="accent"
+        type="button"> Sign In</button>
+    </mat-toolbar>
+    <!-- Add Content Here -->
+
+    <!-- <mat-toolbar color="primary" class="mat-elevation-z24 toolbar">
+      <mat-toolbar-row>
+        <mat-label>Blogging Site</mat-label> -->
+
+    <!-- </mat-toolbar-row>
+    </mat-toolbar> -->
+
+  </mat-sidenav-content>
+</mat-sidenav-container>

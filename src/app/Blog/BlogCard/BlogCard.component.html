@@ -1,0 +1,55 @@
+<ng-template #emptyblog>
+  <div class="spinner-container">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>
+<ng-container *ngIf="authorPost && authorPost.length>0; else emptyblog">
+  <div *ngFor="let post of authorPost">
+    <mat-card class="blog-card mat-elevation-z2">
+      <mat-card-content>
+        <!-- <a class="blog-title" [routerLink]="['/blog/', post.postId, post.title | slug]"> -->
+        <h2>{{ post.title}}</h2>
+        <!-- </a> -->
+      </mat-card-content>
+      <mat-card-subtitle class="blog-info">
+        <i class="fa fa-user" aria-hidden="true" style="cursor:pointer;color: black"> {{post.author}}</i> &nbsp;&nbsp;
+        <i class="fa fa-calendar" aria-hidden="true" style="cursor:pointer;color: black">
+          {{post.createdAt | date:'longDate'}}
+        </i>
+        &nbsp;&nbsp;
+        <i *ngIf="action" class="fa fa-edit" aria-hidden="true" style="cursor:pointer;color: black"> Edit </i>
+        &nbsp;&nbsp;
+        <i *ngIf="action" class="fa fa-trash" aria-hidden="true" (click)="delete(post.postId)"
+          style="cursor:pointer;color: black">
+          Delete </i> &nbsp;&nbsp;
+      </mat-card-subtitle>
+      <mat-card-content>
+        <div [innerHTML]="post.content | excerpt" ng-tt-chars-threshold="40"></div>
+      </mat-card-content>
+      <mat-divider></mat-divider>
+      <mat-card-actions align="end">
+        <!-- <ng-container *ngIf="appUser">
+          <button mat-stroked-button [routerLink]="['/editpost',post.postId]">Edit</button>
+          <button mat-stroked-button color="warn" (click)="delete(post.postId)">Delete</button>
+        </ng-container> -->
+        <!-- <mat-icon>thumb_up</mat-icon>
+            <mat-icon>thumb_down</mat-icon> -->
+        <mat-icon *ngIf="!dislike" style="cursor:pointer;margin-right: 11px;margin-top: 11px;" (click)="dislike=false">
+          favorite
+        </mat-icon>
+        <mat-icon *ngIf="dislike" style="cursor:pointer;margin-right: 11px;margin-top: 11px;" (click)="dislike=true">
+          favorite_border
+        </mat-icon>
+        <mat-icon style="cursor:pointer;margin-right: 11px; margin-top: 11px;">share</mat-icon>
+        <mat-icon style="cursor:pointer;margin-right: 11px; margin-top: 11px;">comment</mat-icon>
+
+        <span class="spacer"></span>
+        <!-- [routerLink]="['/blog/', post.postId, post.title | slug]" -->
+        <button mat-stroked-button color="primary" *ngIf="post.content.length > 300">Read
+          More</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  <mat-divider></mat-divider>
+  <!-- <mat-paginator [pageSizeOptions]="pageSizeOptions" [config]="config"></mat-paginator> -->
+</ng-container>

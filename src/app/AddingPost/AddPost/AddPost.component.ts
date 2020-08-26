@@ -1,5 +1,7 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/services/Auth.service';
+import { Router } from '@angular/router';
+import { BloggerService } from 'src/services/Blogger.service';
 
 @Component({
   selector: 'app-AddPost',
@@ -8,15 +10,55 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class AddPostComponent implements OnInit {
 
-  constructor(
-    public dialogRef: MatDialogRef<AddPostComponent>
-  ) { }
+  config = {
+    uiColor: '#ffffff',
+    toolbarGroups: [{ name: 'clipboard', groups: ['clipboard', 'undo'] },
+    { name: 'editing', groups: ['find', 'selection', 'spellchecker'] },
+    { name: 'links' }, { name: 'insert' },
+    { name: 'document', groups: ['mode', 'document', 'doctools'] },
+    { name: 'basicstyles', groups: ['basicstyles', 'cleanup'] },
+    { name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align'] },
+    { name: 'styles' },
+    { name: 'colors' }],
+    resize_enabled: false,
+    removePlugins: 'elementspath,save,magicline',
+    extraPlugins: 'smiley,justify,indentblock,colordialog,widget,widgetselection,clipboard,lineutils',
+    colorButton_foreStyle: {
+      element: 'font',
+      attributes: { color: '#(color)' }
+    },
+    height: 188,
+    // removeDialogTabs: 'image:advanced;link:advanced',
+    // removeButtons: 'Subscript,Superscript,Anchor,Source,Table',
+    format_tags: 'p;h1;h2;h3;pre;div'
+  };
 
-  ngOnInit() {
+  postData = {
+    author: '',
+    title: '',
+    content: 'Enter Post Here ...',
+    createdAt: new Date()
+  };
+
+  appUser: any;
+
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private blogService: BloggerService,
+  ) {
+    this.authService.appUser$.subscribe(appUser => this.appUser = appUser);
   }
 
-  closeDialog(): void {
-    this.dialogRef.close();
+  ngOnInit() { }
+
+  addBlog() {
+    this.postData.author = this.appUser.name;
+    this.blogService.createPost(this.postData).then(
+      () => {
+        this.router.navigate(['/']);
+      }
+    );
   }
 
 }

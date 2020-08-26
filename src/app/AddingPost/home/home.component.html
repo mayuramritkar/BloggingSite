@@ -1,0 +1,22 @@
+<div class="row col-12">
+  <div class="col-md-9">
+    <app-BlogCard [filterFunction]="FilterValue"></app-BlogCard>
+  </div>
+
+  <div class="col-md-3">
+    <mat-card>
+      <mat-card-content>
+        <mat-form-field class="col-12" appearance="outline">
+          <mat-label class="title">Filter</mat-label>
+          <input matInput placeholder="Filter By Title" [(ngModel)]="FilterValue">
+        </mat-form-field>
+
+        <!-- <mat-divider></mat-divider>
+        <mat-card-title class="text-center">Author</mat-card-title>
+        <img mat-card-avatar src={{appUser.photoURL}}>
+        <mat-card-subtitle class="text-center">{{appUser.name}}</mat-card-subtitle> -->
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+</div>
