@@ -3,7 +3,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as firebase from 'firebase/app';
-import { of } from 'rxjs';
+import { of, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore';
 
@@ -33,6 +33,10 @@ export class AuthService {
         }
       })
     );
+  }
+
+  getAuthor(Id): Observable<any> {
+    return this.db.doc<any>('appusers/' + Id).valueChanges();
   }
 
   // ...

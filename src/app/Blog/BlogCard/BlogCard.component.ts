@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { BloggerService } from 'src/services/Blogger.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/services/Auth.service';
 
 @Component({
   selector: 'app-BlogCard',
@@ -22,6 +23,8 @@ export class BlogCardComponent implements OnInit {
   filterVal = '';
   action = false;
 
+  authorName: any;
+
   @Input()
   set filterFunction(filter: string) {
     this.filterVal = filter;
@@ -30,7 +33,9 @@ export class BlogCardComponent implements OnInit {
   constructor(
     private bloggerService: BloggerService,
     private snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute,
+    private auth: AuthService
   ) {
 
     this.pageSizeOptions = [2, 4, 6];
@@ -44,9 +49,11 @@ export class BlogCardComponent implements OnInit {
   ngOnInit() {
     this.bloggerService.getAllPosts().subscribe(res => {
       this.allPost = res;
-      if (this.appUser !== undefined && this.router.url.includes('/author')) {
+      if (this.appUser !== undefined && this.router.url.endsWith('/author')) {
         this.action = true;
         this.authorPost = res.filter(x => x.author === this.appUser.displayName);
+      } else if (this.router.url.includes('/author/view/')) {
+        this.viewAuthorProfile(res);
       } else {
         this.authorPost = res;
       }
@@ -82,6 +89,15 @@ export class BlogCardComponent implements OnInit {
         }
       );
     }
+  }
+
+  viewAuthorProfile(res) {
+    this.action = false;
+    if (this.route.snapshot.params['Name']) {
+      this.authorName = this.route.snapshot.paramMap.get('Name');
+      // console.log('Author Name', this.authorName);
+    }
+    this.authorPost = res.filter(x => x.author === this.authorName);
   }
 
 }

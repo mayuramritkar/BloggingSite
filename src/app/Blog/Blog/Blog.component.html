@@ -3,17 +3,20 @@
     <mat-card-title>{{postData.title}}</mat-card-title>
   </mat-card-content>
   <mat-card-subtitle class="blog-info">
-    <i class="fa fa-user postDataAction" aria-hidden="true"> {{postData.author}}</i>
+    <i class="fa fa-user postDataAction" aria-hidden="true"></i>&nbsp;
+    <span class="postDataActionTitle"
+      [routerLink]="['/author/view/', postData.authorId, postData.author]">{{postData.author}}</span>
     &nbsp;&nbsp;
     <i class="fa fa-calendar postDataAction" aria-hidden="true">
-      {{postData.createdAt | date:'longDate'}}
-    </i>
+      &nbsp;{{postData.createdAt | date:'longDate'}}</i>
     &nbsp;&nbsp;
-    <i *ngIf="appUser" [routerLink]="['/blog/edit/', postId, postData.title | slug]" class="fa fa-edit postDataAction"
-      aria-hidden="true"> Edit </i>
+    <i *ngIf="action" class="fa fa-edit postDataAction" aria-hidden="true"></i>&nbsp;
+    <span *ngIf="action" class="postDataActionTitle"
+      [routerLink]="['/blog/edit/', postId, postData.title | slug]">Edit</span>
     &nbsp;&nbsp;
-    <i *ngIf="appUser" class="fa fa-trash postDataAction" aria-hidden="true" (click)="delete(postId)">
-      Delete </i> &nbsp;&nbsp;
+    <i *ngIf="action" class="fa fa-trash postDataAction" aria-hidden="true"></i>&nbsp;
+    <span *ngIf="action" class="postDataActionTitle" (click)="delete(postId)">Delete</span>
+    &nbsp;&nbsp;
   </mat-card-subtitle>
   <mat-card-content>
     <div [innerHTML]="postData.content"></div>

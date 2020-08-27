@@ -32,8 +32,9 @@ export class BlogComponent implements OnInit {
   ngOnInit() {
     this.blogService.getPostbyId(this.postId).subscribe(res => {
       this.postData = res;
-      console.log('postData', res);
-
+      if (this.appUser.displayName === this.postData.author) {
+        this.action = true;
+      }
     });
   }
 

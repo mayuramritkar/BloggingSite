@@ -64,5 +64,15 @@ body {
 
 .postDataAction {
   cursor: pointer !important;
-  color: black !important;
+  color: darkslategrey !important;
+}
+
+.postDataActionTitle {
+  cursor: pointer !important;
+  color: darkslategrey !important;
+}
+
+.postDataActionTitle:hover {
+  text-decoration: underline;
+  color: #3f51b5 !important;
 }

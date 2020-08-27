@@ -12,17 +12,20 @@
         </a>
       </mat-card-content>
       <mat-card-subtitle class="blog-info">
-        <i class="fa fa-user postDataAction" aria-hidden="true"> {{post.author}}</i>
+        <i class="fa fa-user postDataAction" aria-hidden="true"></i>&nbsp;
+        <span class="postDataActionTitle"
+          [routerLink]="['/author/view/', post.authorId, post.author]">{{post.author}}</span>
         &nbsp;&nbsp;
         <i class="fa fa-calendar postDataAction" aria-hidden="true">
-          {{post.createdAt | date:'longDate'}}
-        </i>
+          &nbsp;{{post.createdAt | date:'longDate'}}</i>
         &nbsp;&nbsp;
-        <i *ngIf="action" [routerLink]="['/blog/edit/', post.postId, post.title | slug]"
-          class=" fa fa-edit postDataAction" aria-hidden="true"> Edit </i>
+        <i *ngIf="action" class="fa fa-edit postDataAction" aria-hidden="true"></i>&nbsp;
+        <span *ngIf="action" class="postDataActionTitle"
+          [routerLink]="['/blog/edit/', post.postId, post.title | slug]">Edit</span>
         &nbsp;&nbsp;
-        <i *ngIf="action" class="fa fa-trash postDataAction" aria-hidden="true" (click)="delete(post.postId)">
-          Delete </i> &nbsp;&nbsp;
+        <i *ngIf="action" class="fa fa-trash postDataAction" aria-hidden="true"></i>&nbsp;
+        <span *ngIf="action" class="postDataActionTitle" (click)="delete(post.postId)">Delete</span>
+        &nbsp;&nbsp;
       </mat-card-subtitle>
       <mat-card-content>
         <div [innerHTML]="post.content | excerpt" ng-tt-chars-threshold="40"></div>

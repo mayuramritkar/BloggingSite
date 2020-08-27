@@ -9,20 +9,11 @@ import { AuthService } from 'src/services/Auth.service';
 })
 export class AuthorProfileComponent implements OnInit {
 
-  authorPost = [];
-  appUser: any;
-
   constructor(
-    private bloggerService: BloggerService,
-    private auth: AuthService,
   ) {
-    this.auth.appUser$.subscribe(appUser => this.appUser = appUser);
+    console.log('In Author Profile CTOR');
   }
 
   ngOnInit() {
-    // this.bloggerService.getAllPosts().subscribe(res => {
-    //   this.authorPost = res.filter(x => x.author === 'Mayur Amritkar');
-    //   console.log('All POst', this.authorPost, this.appUser);
-    // });
   }
 }

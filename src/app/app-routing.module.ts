@@ -24,6 +24,11 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'author/view/:Id/:Name',
+    component: AuthorProfileComponent,
+    // canActivate: [AuthGuard]
+  },
+  {
     path: 'blog/:Id/:Title',
     component: BlogComponent,
     // canActivate: [AuthGuard]

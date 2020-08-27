@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BloggerService } from 'src/services/Blogger.service';
+import { AuthService } from 'src/services/Auth.service';
 
 @Component({
   selector: 'app-AddPost',
@@ -34,6 +35,7 @@ export class AddPostComponent implements OnInit {
 
   postData = {
     author: '',
+    authorId: '',
     title: '',
     content: 'Enter Post Here ...',
     createdAt: new Date()
@@ -49,7 +51,9 @@ export class AddPostComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private blogService: BloggerService,
+    private auth: AuthService
   ) {
+
     if (this.router.url.includes('/edit/') && this.route.snapshot.params['Id']) {
       this.mode = 'update';
       this.postId = this.route.snapshot.paramMap.get('Id');
@@ -59,7 +63,11 @@ export class AddPostComponent implements OnInit {
   ngOnInit() {
     if (this.router.url.includes('/edit/')) {
       this.blogService.getPostbyId(this.postId).subscribe(res => {
-        this.postData = res;
+        if (this.appUser.displayName !== res.author) {
+          this.router.navigate(['/']);
+        } else {
+          this.postData = res;
+        }
       });
     }
   }
@@ -67,6 +75,7 @@ export class AddPostComponent implements OnInit {
   addBlog() {
     if (this.router.url.includes('/add/')) {
       this.postData.author = this.appUser.displayName;
+      this.postData.authorId = this.appUser.uid;
       this.blogService.createPost(this.postData).then(
         () => {
           this.router.navigate(['/']);
@@ -78,6 +87,7 @@ export class AddPostComponent implements OnInit {
   updateBlog() {
     if (this.mode === 'update') {
       this.postData.author = this.appUser.displayName;
+      this.postData.authorId = this.appUser.uid;
       this.blogService.updatePost(this.postId, this.postData).then(
         () => {
           this.router.navigate(['/']);
