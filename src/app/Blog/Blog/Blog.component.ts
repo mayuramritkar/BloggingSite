@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, DoCheck } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BloggerService } from 'src/services/Blogger.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthService } from 'src/services/Auth.service';
 
 @Component({
   selector: 'app-Blog',
   templateUrl: './Blog.component.html',
-  styleUrls: ['./Blog.component.scss']
+  styleUrls: ['./Blog.component.scss'],
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BlogComponent implements OnInit {
+export class BlogComponent implements OnInit, DoCheck {
 
   postData: any;
   postId;
@@ -22,7 +24,8 @@ export class BlogComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private blogService: BloggerService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private router: Router
   ) {
     if (this.route.snapshot.params['Id']) {
       this.postId = this.route.snapshot.paramMap.get('Id');
@@ -32,7 +35,7 @@ export class BlogComponent implements OnInit {
   ngOnInit() {
     this.blogService.getPostbyId(this.postId).subscribe(res => {
       this.postData = res;
-      if (this.appUser.displayName === this.postData.author) {
+      if (this.appUser && this.postData && this.appUser.displayName === this.postData.author) {
         this.action = true;
       }
     });
@@ -49,5 +52,13 @@ export class BlogComponent implements OnInit {
     }
   }
 
+  ngDoCheck(): void {
+    this.appUser = JSON.parse(localStorage.getItem('user'));
+    if (this.appUser && this.postData && this.appUser.displayName === this.postData.author) {
+      this.action = true;
+    } else if (!this.appUser || !this.postData || this.appUser.displayName !== this.postData.author) {
+      this.action = false;
+    }
+  }
 
 }

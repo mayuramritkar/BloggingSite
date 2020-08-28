@@ -1,16 +1,36 @@
-<mat-card *ngIf="appUser">
-  <mat-card-content class="text-center">
-    <mat-card-title color="gray">Author</mat-card-title>
-    <img mat-card-avatar src={{appUser.photoURL}}>
-    <mat-card-title style="margin-top:5px;">{{appUser.name}}</mat-card-title>
-    <mat-divider></mat-divider>
-    <a *ngIf="appUser.facebookURL" href={{appUser.facebookURL}} target="_blank"><i class="faIcon fa fa-facebook-square"
-        aria-hidden="true"></i></a>
-    <a *ngIf="appUser.twitterURL" href={{appUser.twitterURL}} target="_blank"><i class="faIcon fa fa-twitter-square"
-        aria-hidden="true"></i></a>
-    <a *ngIf="appUser.linkedInURL" href={{appUser.linkedInURL}} target="_blank"><i class="faIcon fa fa-linkedin-square"
-        aria-hidden="true"></i></a>
-    <a *ngIf="appUser.githubURL" href={{appUser.githubURL}} target="_blank"><i class="faIcon fa fa-github-square"
-        aria-hidden="true"></i></a>
-  </mat-card-content>
-</mat-card>
+<div class="row col-md-12">
+  <mat-card *ngIf="appUser" class="col-md-3">
+    <mat-card-content class="col-12 text-center">
+      <mat-card-title color="gray">Author</mat-card-title>
+      <img mat-card-avatar src={{appUser.photoURL}}>
+      <mat-card-title style="margin-top:5px;">{{appUser.name}}</mat-card-title>
+      <mat-divider></mat-divider>
+      <a href={{appUser.facebookURL}} target="_blank"><i class="faIcon fa fa-facebook-square"
+          aria-hidden="true"></i></a>
+      <a *ngIf="appUser.twitterURL" href={{appUser.twitterURL}} target="_blank"><i class="faIcon fa fa-twitter-square"
+          aria-hidden="true"></i></a>
+      <a *ngIf="appUser.linkedInURL" href={{appUser.linkedInURL}} target="_blank"><i
+          class="faIcon fa fa-linkedin-square" aria-hidden="true"></i></a>
+      <a *ngIf="appUser.githubURL" href={{appUser.githubURL}} target="_blank"><i class="faIcon fa fa-github-square"
+          aria-hidden="true"></i></a>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="col-md-9" style="max-height:332px;">
+    <mat-card-content class="col-12">
+      <mat-card-title>About Author </mat-card-title>
+      <span class="row col-12">
+        <mat-card-subtitle style="font-style: italic;">Follwers 500 &nbsp;&nbsp; Following 50</mat-card-subtitle>
+        <span class="spacer"></span>
+        <mat-card-subtitle *ngIf="!action" style="font-style: italic;cursor: pointer;">Edit Data</mat-card-subtitle>
+      </span>
+      <p>
+        {{ data.length > 900 ?  data.substr(0,900)+' [...]' : data}}
+      </p>
+
+      <div style="float:right;">
+        <button *ngIf="action" style="border-radius:50px;" mat-raised-button color="primary" (click)="followMe()">Follow
+          Me</button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

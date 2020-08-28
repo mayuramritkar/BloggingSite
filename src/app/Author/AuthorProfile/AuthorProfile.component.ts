@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { BloggerService } from 'src/services/Blogger.service';
-import { AuthService } from 'src/services/Auth.service';
 
 @Component({
   selector: 'app-AuthorProfile',

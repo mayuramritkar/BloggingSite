@@ -1,15 +1,16 @@
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, DoCheck } from '@angular/core';
 import { BloggerService } from 'src/services/Blogger.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/services/Auth.service';
 
+// tslint:disable-next-line:no-conflicting-lifecycle
 @Component({
   selector: 'app-BlogCard',
   templateUrl: './BlogCard.component.html',
   styleUrls: ['./BlogCard.component.scss']
 })
-export class BlogCardComponent implements OnInit {
+export class BlogCardComponent implements OnInit, DoCheck {
 
   authorPost = [];
   allPost = [];
@@ -95,9 +96,28 @@ export class BlogCardComponent implements OnInit {
     this.action = false;
     if (this.route.snapshot.params['Name']) {
       this.authorName = this.route.snapshot.paramMap.get('Name');
-      // console.log('Author Name', this.authorName);
+      // console.log('Author Name', this.authorName, this.appUser);
     }
     this.authorPost = res.filter(x => x.author === this.authorName);
+    if (this.appUser && this.appUser.displayName === this.authorName) {
+      this.action = true;
+    }
+  }
+
+  ngDoCheck(): void {
+    this.appUser = JSON.parse(localStorage.getItem('user'));
+    if (this.appUser && this.appUser.displayName === this.authorName) {
+      this.action = true;
+    } else if (!this.appUser || this.appUser.displayName !== this.authorName) {
+      this.action = false;
+    }
+    if (this.router.url.endsWith('/author')) {
+      if (!this.appUser) {
+        this.router.navigate(['/']);
+      } else if (this.appUser) {
+        this.action = true;
+      }
+    }
   }
 
 }

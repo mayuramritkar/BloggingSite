@@ -63,7 +63,7 @@ export class AddPostComponent implements OnInit {
   ngOnInit() {
     if (this.router.url.includes('/edit/')) {
       this.blogService.getPostbyId(this.postId).subscribe(res => {
-        if (this.appUser.displayName !== res.author) {
+        if (this.appUser && this.appUser.displayName !== res.author) {
           this.router.navigate(['/']);
         } else {
           this.postData = res;
@@ -73,7 +73,7 @@ export class AddPostComponent implements OnInit {
   }
 
   addBlog() {
-    if (this.router.url.includes('/add/')) {
+    if (this.router.url.endsWith('/add')) {
       this.postData.author = this.appUser.displayName;
       this.postData.authorId = this.appUser.uid;
       this.blogService.createPost(this.postData).then(

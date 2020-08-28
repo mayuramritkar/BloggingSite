@@ -60,7 +60,7 @@ export class AuthService {
   async logout() {
     firebase.auth().signOut().then(() => {
       localStorage.clear();
-      this.router.navigate(['/']);
+      // this.router.navigate(['/']);
     });
   }
 
