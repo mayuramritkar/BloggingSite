@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BloggerService } from 'src/services/Blogger.service';
 import { AuthService } from 'src/services/Auth.service';
@@ -8,7 +8,7 @@ import { AuthService } from 'src/services/Auth.service';
   templateUrl: './AddPost.component.html',
   styleUrls: ['./AddPost.component.scss']
 })
-export class AddPostComponent implements OnInit {
+export class AddPostComponent implements OnInit, DoCheck {
 
   config = {
     uiColor: '#ffffff',
@@ -57,6 +57,13 @@ export class AddPostComponent implements OnInit {
     if (this.router.url.includes('/edit/') && this.route.snapshot.params['Id']) {
       this.mode = 'update';
       this.postId = this.route.snapshot.paramMap.get('Id');
+    }
+  }
+
+  ngDoCheck() {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (!user) {
+      this.router.navigate(['/']);
     }
   }
 
