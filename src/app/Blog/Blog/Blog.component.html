@@ -19,7 +19,7 @@
     &nbsp;&nbsp;
   </mat-card-subtitle>
   <mat-card-content>
-    <div [innerHTML]="postData.content"></div>
+    <div [innerHTML]="postData.content | safeHtml"></div>
   </mat-card-content>
   <mat-divider></mat-divider>
   <mat-card-actions align="end">

@@ -28,6 +28,7 @@ import { AuthorProfileComponent } from 'src/app/Author/AuthorProfile/AuthorProfi
 import { ProfileCardComponent } from 'src/app/Author/ProfileCard/ProfileCard.component';
 import { ExcerptPipe } from './customPipes/excerpt.pipe';
 import { SlugPipe } from './customPipes/slug.pipe';
+import { SafeHtmlPipe } from './customPipes/SafeHtml.pipe';
 import { BlogCardComponent } from 'src/app/Blog/BlogCard/BlogCard.component';
 import { BlogComponent } from './Blog/Blog/Blog.component';
 
@@ -46,7 +47,8 @@ firebase.initializeApp(environment.firebaseConfig);
     BlogCardComponent,
     BlogComponent,
     ExcerptPipe,
-    SlugPipe
+    SlugPipe,
+    SafeHtmlPipe
   ],
   imports: [
     BrowserModule,
