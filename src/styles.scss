@@ -76,3 +76,19 @@ body {
   text-decoration: underline;
   color: #3f51b5 !important;
 }
+
+.removeMargin {
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+}
+
+.removePadding {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+
+@media screen and (max-width: 768px) {
+  .homeContentFloat {
+    float: left !important;
+  }
+}

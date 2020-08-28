@@ -1,4 +1,4 @@
-<div class="row col-md-12">
+<div class="row col-md-12 removeMargin">
   <mat-card *ngIf="appUser" class="col-md-3">
     <mat-card-content class="col-12 text-center">
       <mat-card-title color="gray">Author</mat-card-title>
@@ -15,7 +15,8 @@
           aria-hidden="true"></i></a>
     </mat-card-content>
   </mat-card>
-  <mat-card class="col-md-9" style="max-height:332px;">
+
+  <mat-card *ngIf="appUser" class="col-md-9">
     <mat-card-content class="col-12">
       <mat-card-title>About Author </mat-card-title>
       <span class="row col-12">
