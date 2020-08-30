@@ -47,6 +47,11 @@ export class BlogComponent implements OnInit, DoCheck {
       if (this.appUser && this.postData && this.appUser.displayName === this.postData.author) {
         this.action = true;
       }
+      if (this.postData.stars && this.postData.stars[this.appUser.uid] && this.postData.stars[this.appUser.uid] === true) {
+        this.dislike = false;
+      } else {
+        this.dislike = true;
+      }
     });
   }
 
@@ -90,4 +95,27 @@ export class BlogComponent implements OnInit, DoCheck {
       this.snackBar.open('Login With Google to POST COMMENT', 'Close', { duration: 3000 });
     }
   }
+
+  // Bind starring action.
+  /**
+  * Star/unstar post.
+  */
+  // [START post_stars_transaction]
+  onStarClicked(dislike) {
+    if (this.postData) {
+      if (this.postData.stars && this.postData.stars[this.appUser.uid]) {
+        this.postData.starCount--;
+        this.postData.stars[this.appUser.uid] = null;
+      } else {
+        this.postData.starCount++;
+        if (!this.postData.stars) {
+          this.postData.stars = {};
+        }
+        this.postData.stars[this.appUser.uid] = true;
+      }
+    }
+    this.blogService.updatePost(this.postId, this.postData);
+  }
+  // [END post_stars_transaction]
+
 }
