@@ -23,6 +23,8 @@ export class BlogComponent implements OnInit, DoCheck {
 
   action = false;
 
+  commentCnt: any;
+
   constructor(
     private route: ActivatedRoute,
     public dialog: MatDialog,
@@ -33,6 +35,10 @@ export class BlogComponent implements OnInit, DoCheck {
     if (this.route.snapshot.params['Id']) {
       this.postId = this.route.snapshot.paramMap.get('Id');
     }
+  }
+
+  CommentCount($event) {
+    this.commentCnt = $event;
   }
 
   ngOnInit() {

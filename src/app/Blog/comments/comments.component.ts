@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy, Output } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, Output, EventEmitter } from '@angular/core';
 // import { DatePipe } from '@angular/common';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -19,6 +19,8 @@ export class CommentsComponent implements OnInit, OnDestroy {
   blogId;
 
   @Input() isAdmin;
+
+  @Output() commentCnt = new EventEmitter<any>();
 
   appUser: any = JSON.parse(localStorage.getItem('user'));
   public comments = new Comments();
@@ -49,6 +51,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(result => {
         this.commentList = result;
+        this.commentCnt.emit(result.length);
       });
   }
 
