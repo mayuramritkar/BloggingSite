@@ -32,6 +32,7 @@ import { SafeHtmlPipe } from './customPipes/SafeHtml.pipe';
 import { BlogCardComponent } from 'src/app/Blog/BlogCard/BlogCard.component';
 import { BlogComponent } from './Blog/Blog/Blog.component';
 import { CommentsComponent } from './Blog/comments/comments.component';
+import { AddCommentsComponent } from './Blog/AddComments/AddComments.component';
 
 firebase.initializeApp(environment.firebaseConfig);
 
@@ -50,7 +51,8 @@ firebase.initializeApp(environment.firebaseConfig);
     ExcerptPipe,
     SlugPipe,
     SafeHtmlPipe,
-    CommentsComponent
+    CommentsComponent,
+    AddCommentsComponent
   ],
   imports: [
     BrowserModule,
@@ -69,7 +71,7 @@ firebase.initializeApp(environment.firebaseConfig);
     AngularFireModule.initializeApp(environment.firebaseConfig),
     JwtModule
   ],
-  entryComponents: [ProfileCardComponent],
+  entryComponents: [AddCommentsComponent],
   providers: [
     AuthService,
     JwtHelperService, { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },

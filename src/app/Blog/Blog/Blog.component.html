@@ -30,9 +30,12 @@
       favorite_border
     </mat-icon>
     <mat-icon class="socialAction">share</mat-icon>
-    <mat-icon class="socialAction">comment</mat-icon>
+    <mat-icon class="socialAction">comment
+    </mat-icon>
     <span class="spacer"></span>
+    <button mat-raised-button color="primary" style="border-radius:20px" (click)="replayDialogue()">Leave A
+      Replay</button>
   </mat-card-actions>
-  <mat-divider></mat-divider>
-  <app-comments [blogId]="postId"></app-comments>
 </mat-card>
+
+<app-comments [blogId]="postId" [isAdmin]="action"></app-comments>

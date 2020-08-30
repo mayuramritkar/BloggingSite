@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { DatePipe } from '@angular/common';
+import { Component, OnInit, Input, OnDestroy, Output } from '@angular/core';
+// import { DatePipe } from '@angular/common';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Comments } from 'src/models/comment';
@@ -11,12 +11,14 @@ import { SnackbarService } from 'src/services/snackbar.service';
   selector: 'app-comments',
   templateUrl: './comments.component.html',
   styleUrls: ['./comments.component.scss'],
-  providers: [DatePipe]
+  // providers: [DatePipe]
 })
 export class CommentsComponent implements OnInit, OnDestroy {
 
   @Input()
   blogId;
+
+  @Input() isAdmin;
 
   appUser: any = JSON.parse(localStorage.getItem('user'));
   public comments = new Comments();
@@ -24,7 +26,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
   private unsubscribe$ = new Subject<void>();
 
   constructor(
-    private datePipe: DatePipe,
+    // private datePipe: DatePipe,
     private commentService: CommentService,
     private authService: AuthService,
     private snackBarService: SnackbarService) { }
@@ -34,13 +36,13 @@ export class CommentsComponent implements OnInit, OnDestroy {
     this.getAllComments();
   }
 
-  onCommentPost(commentForm) {
-    this.comments.commentDate = this.datePipe.transform(Date.now(), 'MM-dd-yyyy HH:mm:ss');
-    this.comments.blogId = this.blogId;
-    this.commentService.saveComment(this.comments).then(
-      commentForm.resetForm()
-    );
-  }
+  // onCommentPost(commentForm) {
+  //   this.comments.commentDate = this.datePipe.transform(Date.now(), 'MM-dd-yyyy HH:mm:ss');
+  //   this.comments.blogId = this.blogId;
+  //   this.commentService.saveComment(this.comments).then(
+  //     commentForm.resetForm()
+  //   );
+  // }
 
   getAllComments() {
     this.commentService.getAllCommentsForBlog(this.blogId)
@@ -60,9 +62,9 @@ export class CommentsComponent implements OnInit, OnDestroy {
     }
   }
 
-  login() {
-    this.authService.login();
-  }
+  // login() {
+  //   this.authService.login();
+  // }
 
   ngOnDestroy() {
     this.unsubscribe$.next();

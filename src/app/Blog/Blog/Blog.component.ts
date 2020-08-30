@@ -1,8 +1,10 @@
 import { Component, OnInit, DoCheck } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { BloggerService } from 'src/services/Blogger.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AuthService } from 'src/services/Auth.service';
+// import { AuthService } from 'src/services/Auth.service';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { AddCommentsComponent } from '../AddComments/AddComments.component';
 
 @Component({
   selector: 'app-Blog',
@@ -23,9 +25,10 @@ export class BlogComponent implements OnInit, DoCheck {
 
   constructor(
     private route: ActivatedRoute,
+    public dialog: MatDialog,
     private blogService: BloggerService,
     private snackBar: MatSnackBar,
-    private router: Router
+    // private router: Router
   ) {
     if (this.route.snapshot.params['Id']) {
       this.postId = this.route.snapshot.paramMap.get('Id');
@@ -61,4 +64,24 @@ export class BlogComponent implements OnInit, DoCheck {
     }
   }
 
+  replayDialogue() {
+    // console.log('Diag Open');
+    if (this.appUser) {
+      const dialogConfig = new MatDialogConfig();
+      // dialogConfig.disableClose = true;
+      // dialogConfig.autoFocus = true;
+      // dialogConfig.hasBackdrop = true;
+      dialogConfig.data = {
+        blogId: this.postId,
+        isAdmin: this.action
+      };
+
+      const dialogRef = this.dialog.open(AddCommentsComponent, dialogConfig);
+      dialogRef.afterClosed().subscribe(result => {
+        // console.log('Dialog closed in single user wallet and score');
+      });
+    } else {
+      this.snackBar.open('Login With Google to POST COMMENT', 'Close', { duration: 3000 });
+    }
+  }
 }
