@@ -23,10 +23,12 @@
   </mat-card-content>
   <mat-divider></mat-divider>
   <mat-card-actions align="end">
-    <mat-icon *ngIf="!dislike" class="socialAction" (click)="onStarClicked(true)">
+    <mat-icon *ngIf="!dislike" [matBadge]="postData.starCount!==0 ? postData.starCount : null" matBadgeColor="accent"
+      class="socialAction" (click)="onStarClicked(true)">
       favorite
     </mat-icon>
-    <mat-icon *ngIf="dislike" class="socialAction" (click)="onStarClicked(false)">
+    <mat-icon *ngIf="dislike" [matBadge]="postData.starCount!==0 ? postData.starCount : null" matBadgeColor="accent"
+      class="socialAction" (click)="onStarClicked(false)">
       favorite_border
     </mat-icon>
     <mat-icon class="socialAction">share</mat-icon>
