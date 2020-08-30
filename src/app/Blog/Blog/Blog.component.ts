@@ -64,7 +64,7 @@ export class BlogComponent implements OnInit, DoCheck {
     }
   }
 
-  replayDialogue() {
+  replyDialogue() {
     // console.log('Diag Open');
     if (this.appUser) {
       const dialogConfig = new MatDialogConfig();
