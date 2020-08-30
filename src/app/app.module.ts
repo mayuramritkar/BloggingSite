@@ -31,6 +31,7 @@ import { SlugPipe } from './customPipes/slug.pipe';
 import { SafeHtmlPipe } from './customPipes/SafeHtml.pipe';
 import { BlogCardComponent } from 'src/app/Blog/BlogCard/BlogCard.component';
 import { BlogComponent } from './Blog/Blog/Blog.component';
+import { CommentsComponent } from './Blog/comments/comments.component';
 
 firebase.initializeApp(environment.firebaseConfig);
 
@@ -48,7 +49,8 @@ firebase.initializeApp(environment.firebaseConfig);
     BlogComponent,
     ExcerptPipe,
     SlugPipe,
-    SafeHtmlPipe
+    SafeHtmlPipe,
+    CommentsComponent
   ],
   imports: [
     BrowserModule,
