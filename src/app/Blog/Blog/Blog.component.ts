@@ -23,7 +23,7 @@ export class BlogComponent implements OnInit, DoCheck {
 
   action = false;
 
-  commentCnt: any;
+  isCommentDelete: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -38,7 +38,17 @@ export class BlogComponent implements OnInit, DoCheck {
   }
 
   CommentCount($event) {
-    this.commentCnt = $event;
+    this.isCommentDelete = $event;
+    if ($event) {
+      if (this.postData) {
+        if (!this.postData.commentCount) {
+          this.postData.commentCount = 0;
+        } else {
+          this.postData.commentCount--;
+        }
+      }
+      this.blogService.updatePost(this.postId, this.postData);
+    }
   }
 
   ngOnInit() {
@@ -84,12 +94,13 @@ export class BlogComponent implements OnInit, DoCheck {
       // dialogConfig.hasBackdrop = true;
       dialogConfig.data = {
         blogId: this.postId,
-        isAdmin: this.action
+        isAdmin: this.action,
+        blogData: this.postData
       };
 
       const dialogRef = this.dialog.open(AddCommentsComponent, dialogConfig);
       dialogRef.afterClosed().subscribe(result => {
-        // console.log('Dialog closed in single user wallet and score');
+        console.log('Dialog closed Result', result);
       });
     } else {
       this.snackBar.open('Login With Google to POST COMMENT', 'Close', { duration: 3000 });
@@ -97,8 +108,7 @@ export class BlogComponent implements OnInit, DoCheck {
   }
 
   // Bind starring action.
-  /**
-  * Star/unstar post.
+  /* Star/unstar post.
   */
   // [START post_stars_transaction]
   onStarClicked(dislike) {

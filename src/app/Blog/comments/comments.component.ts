@@ -20,7 +20,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
 
   @Input() isAdmin;
 
-  @Output() commentCnt = new EventEmitter<any>();
+  @Output() isCommentDelete = new EventEmitter<any>();
 
   appUser: any = JSON.parse(localStorage.getItem('user'));
   public comments = new Comments();
@@ -51,7 +51,6 @@ export class CommentsComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(result => {
         this.commentList = result;
-        this.commentCnt.emit(result.length);
       });
   }
 
@@ -59,6 +58,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
     if (confirm('Do you want to delete this comment!!!')) {
       this.commentService.deleteSingleComment(commentId).then(
         () => {
+          this.isCommentDelete.emit(true);
           this.snackBarService.showSnackBar('Comment Deleted successfully');
         }
       );

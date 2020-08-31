@@ -32,7 +32,8 @@
       favorite_border
     </mat-icon>
     <mat-icon class="socialAction">share</mat-icon>
-    <mat-icon class="socialAction" [matBadge]="commentCnt" matBadgeColor="accent">comment
+    <mat-icon class="socialAction" [matBadge]="postData.commentCount!==0 ? postData.commentCount : null"
+      matBadgeColor="accent">comment
     </mat-icon>
     <span class="spacer"></span>
     <button mat-raised-button color="primary" style="border-radius:20px" (click)="replyDialogue()">Leave A
@@ -40,4 +41,4 @@
   </mat-card-actions>
 </mat-card>
 
-<app-comments [blogId]="postId" [isAdmin]="action" (commentCnt)="CommentCount($event)"></app-comments>
+<app-comments [blogId]="postId" [isAdmin]="action" (isCommentDelete)="CommentCount($event)"></app-comments>
