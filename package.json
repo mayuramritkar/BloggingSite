@@ -28,6 +28,7 @@
     "firebase-tools": "^8.7.0",
     "firebaseui": "^4.6.1",
     "jwt-decode": "^2.2.0",
+    "ng-image-slider": "^2.6.4",
     "ng2-ckeditor": "^1.2.9",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",

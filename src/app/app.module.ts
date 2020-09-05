@@ -33,6 +33,7 @@ import { BlogCardComponent } from 'src/app/Blog/BlogCard/BlogCard.component';
 import { BlogComponent } from './Blog/Blog/Blog.component';
 import { CommentsComponent } from './Blog/comments/comments.component';
 import { AddCommentsComponent } from './Blog/AddComments/AddComments.component';
+import { NgImageSliderModule } from 'ng-image-slider';
 
 firebase.initializeApp(environment.firebaseConfig);
 
@@ -69,7 +70,8 @@ firebase.initializeApp(environment.firebaseConfig);
     AngularFireAuthModule,
     AngularFireMessagingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    JwtModule
+    JwtModule,
+    NgImageSliderModule
   ],
   entryComponents: [AddCommentsComponent],
   providers: [
