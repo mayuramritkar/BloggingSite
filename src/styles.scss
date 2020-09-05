@@ -88,11 +88,22 @@ body {
 }
 
 @media screen and (max-width: 768px) {
-  .homeContentFloat {
-    float: left !important;
+  .homeContent {
+    padding-left: 0% !important;
+    padding-right: 0% !important;
   }
 }
 
 .mat-dialog-container {
   padding: 0px !important;
+}
+
+.float {
+  z-index: 98;
+  position: fixed;
+  bottom: 4rem;
+  right: 5rem;
+  transform: scale(1.7) !important;
+  background-color: #e9ecef;
+  border-radius: 50%;
 }
