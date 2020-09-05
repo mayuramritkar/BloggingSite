@@ -3,6 +3,7 @@ import { BloggerService } from 'src/services/Blogger.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/services/Auth.service';
+import { CommentService } from 'src/services/comment.service';
 
 // tslint:disable-next-line:no-conflicting-lifecycle
 @Component({
@@ -36,7 +37,8 @@ export class BlogCardComponent implements OnInit, DoCheck {
     private snackBar: MatSnackBar,
     private router: Router,
     private route: ActivatedRoute,
-    private auth: AuthService
+    private auth: AuthService,
+    private commentService: CommentService
   ) {
 
     this.pageSizeOptions = [2, 4, 6];
@@ -85,7 +87,7 @@ export class BlogCardComponent implements OnInit, DoCheck {
     if (confirm('Are you sure')) {
       this.bloggerService.deletePost(id).then(
         () => {
-          // this.commentService.deleteAllCommentForBlog(postId);
+          this.commentService.deleteAllCommentForBlog(id);
           this.snackBar.open('Blog post deleted successfully', 'Dismiss', { duration: 3000 });
         }
       );

@@ -5,9 +5,20 @@
   <mat-card-content>
     <mat-form-field class="col-6" appearance="outline">
       <mat-label class="title">Title</mat-label>
-      <input [(ngModel)]="postData.title" matInput placeholder="Enter Title" autocomplete="off">
+      <input [(ngModel)]="postData.title" matInput placeholder="Enter Title" autocomplete="off" required>
+      <mat-error>Post Title is required</mat-error>
     </mat-form-field>
-    <mat-form-field class="col-6" appearance="outline">
+    <mat-form-field class="col-2" appearance="outline">
+      <input type="text" placeholder="Select Category" aria-label="Category" matInput [(ngModel)]="postData.category"
+        [matAutocomplete]="auto2" (keyup)="displayFn($event)" required>
+      <mat-error>Category is required</mat-error>
+      <mat-autocomplete #auto2="matAutocomplete">
+        <mat-option *ngFor="let option of filterCategoryList" [value]="option">
+          {{ option|titlecase }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field class="col-4" appearance="outline">
       <mat-label class="title">Time</mat-label>
       <input disabled matInput [(ngModel)]="postData.createdAt">
     </mat-form-field>

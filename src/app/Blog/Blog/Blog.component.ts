@@ -1,10 +1,11 @@
 import { Component, OnInit, DoCheck } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BloggerService } from 'src/services/Blogger.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 // import { AuthService } from 'src/services/Auth.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AddCommentsComponent } from '../AddComments/AddComments.component';
+import { CommentService } from 'src/services/comment.service';
 
 @Component({
   selector: 'app-Blog',
@@ -30,7 +31,8 @@ export class BlogComponent implements OnInit, DoCheck {
     public dialog: MatDialog,
     private blogService: BloggerService,
     private snackBar: MatSnackBar,
-    // private router: Router
+    private commentService: CommentService,
+    private router: Router
   ) {
     if (this.route.snapshot.params['Id']) {
       this.postId = this.route.snapshot.paramMap.get('Id');
@@ -69,8 +71,9 @@ export class BlogComponent implements OnInit, DoCheck {
     if (confirm('Are you sure')) {
       this.blogService.deletePost(id).then(
         () => {
-          // this.commentService.deleteAllCommentForBlog(postId);
+          this.commentService.deleteAllCommentForBlog(id);
           this.snackBar.open('Blog post deleted successfully', 'Dismiss', { duration: 3000 });
+          this.router.navigate(['/']);
         }
       );
     }

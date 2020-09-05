@@ -33,10 +33,19 @@ export class AddPostComponent implements OnInit, DoCheck {
     format_tags: 'p;h1;h2;h3;pre;div'
   };
 
+  filterCategoryList = [];
+  categoryList = [
+    'history', 'culture', 'technology', 'trending',
+    'health', 'science', 'business', 'politics',
+    'startups', 'self', 'design', 'food',
+    'travel', 'photogrphy', 'other'
+  ];
+
   postData = {
     author: '',
     authorId: '',
     title: '',
+    category: '',
     content: 'Enter Post Here ...',
     createdAt: new Date(),
     starCount: 0,
@@ -55,7 +64,7 @@ export class AddPostComponent implements OnInit, DoCheck {
     private blogService: BloggerService,
     private auth: AuthService
   ) {
-
+    this.filterCategoryList = this.categoryList;
     if (this.router.url.includes('/edit/') && this.route.snapshot.params['Id']) {
       this.mode = 'update';
       this.postId = this.route.snapshot.paramMap.get('Id');
@@ -66,6 +75,14 @@ export class AddPostComponent implements OnInit, DoCheck {
     const user = JSON.parse(localStorage.getItem('user'));
     if (!user) {
       this.router.navigate(['/']);
+    }
+  }
+
+  displayFn(e) {
+    if (e.target.value !== '') {
+      this.filterCategoryList = this.categoryList.filter(x => x.includes(e.target.value));
+    } else {
+      this.filterCategoryList = this.categoryList;
     }
   }
 
