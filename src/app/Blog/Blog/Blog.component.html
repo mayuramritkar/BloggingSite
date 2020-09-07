@@ -18,7 +18,7 @@
     <span *ngIf="action" class="postDataActionTitle" (click)="delete(postId)">Delete</span>
     &nbsp;&nbsp;
   </mat-card-subtitle>
-  <mat-card-content>
+  <mat-card-content style="overflow:auto;">
     <div [innerHTML]="postData.content | safeHtml"></div>
   </mat-card-content>
   <mat-divider></mat-divider>
