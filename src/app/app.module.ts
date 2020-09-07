@@ -34,6 +34,7 @@ import { BlogComponent } from './Blog/Blog/Blog.component';
 import { CommentsComponent } from './Blog/comments/comments.component';
 import { AddCommentsComponent } from './Blog/AddComments/AddComments.component';
 import { NgImageSliderModule } from 'ng-image-slider';
+import { AddAuthorInformationComponent } from './Author/AddAuthorInformation/AddAuthorInformation.component';
 
 firebase.initializeApp(environment.firebaseConfig);
 
@@ -53,7 +54,8 @@ firebase.initializeApp(environment.firebaseConfig);
     SlugPipe,
     SafeHtmlPipe,
     CommentsComponent,
-    AddCommentsComponent
+    AddCommentsComponent,
+    AddAuthorInformationComponent
   ],
   imports: [
     BrowserModule,
@@ -73,7 +75,7 @@ firebase.initializeApp(environment.firebaseConfig);
     JwtModule,
     NgImageSliderModule
   ],
-  entryComponents: [AddCommentsComponent],
+  entryComponents: [AddCommentsComponent, AddAuthorInformationComponent],
   providers: [
     AuthService,
     JwtHelperService, { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },

@@ -70,9 +70,19 @@ export class AuthService {
     const data = {
       name: user.displayName,
       email: user.email,
-      photoURL: user.photoURL
+      photoURL: user.photoURL,
+      about: 'Write Something About Yourself...',
+      facebookURL: '',
+      githubURL: '',
+      linkedinURL: '',
+      twitterURL: ''
     };
+    return userRef.set(data, { merge: true });
+  }
 
+  // Update User Data
+  public editUserData(id, data) {
+    const userRef = this.db.doc(`appusers/${id}`);
     return userRef.set(data, { merge: true });
   }
 

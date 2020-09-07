@@ -79,6 +79,7 @@ export class AddPostComponent implements OnInit, DoCheck {
   }
 
   displayFn(e) {
+    e.target.value = e.target.value.toLowerCase();
     if (e.target.value !== '') {
       this.filterCategoryList = this.categoryList.filter(x => x.includes(e.target.value));
     } else {

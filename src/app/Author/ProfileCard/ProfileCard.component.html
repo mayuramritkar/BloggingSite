@@ -5,11 +5,11 @@
       <img mat-card-avatar src={{appUser.photoURL}}>
       <mat-card-title style="margin-top:5px;">{{appUser.name}}</mat-card-title>
       <mat-divider></mat-divider>
-      <a href={{appUser.facebookURL}} target="_blank"><i class="faIcon fa fa-facebook-square"
-          aria-hidden="true"></i></a>
+      <a *ngIf="appUser.facebookURL" href={{appUser.facebookURL}} target="_blank"><i
+          class="faIcon fa fa-facebook-square" aria-hidden="true"></i></a>
       <a *ngIf="appUser.twitterURL" href={{appUser.twitterURL}} target="_blank"><i class="faIcon fa fa-twitter-square"
           aria-hidden="true"></i></a>
-      <a *ngIf="appUser.linkedInURL" href={{appUser.linkedInURL}} target="_blank"><i
+      <a *ngIf="appUser.linkedinURL" href={{appUser.linkedinURL}} target="_blank"><i
           class="faIcon fa fa-linkedin-square" aria-hidden="true"></i></a>
       <a *ngIf="appUser.githubURL" href={{appUser.githubURL}} target="_blank"><i class="faIcon fa fa-github-square"
           aria-hidden="true"></i></a>
@@ -22,10 +22,11 @@
       <span class="row col-12">
         <mat-card-subtitle style="font-style: italic;">Follwers 500 &nbsp;&nbsp; Following 50</mat-card-subtitle>
         <span class="spacer"></span>
-        <mat-card-subtitle *ngIf="!action" style="font-style: italic;cursor: pointer;">Edit Data</mat-card-subtitle>
+        <mat-card-subtitle *ngIf="!action" style="font-style: italic;cursor: pointer;" (click)="addAuthorInformation()">
+          Edit Data</mat-card-subtitle>
       </span>
       <p>
-        {{ data.length > 900 ?  data.substr(0,900)+' [...]' : data}}
+        {{ appUser.about.length > 900 ?  appUser.about.substr(0,900)+' [...]' : appUser.about}}
       </p>
 
       <div style="float:right;">

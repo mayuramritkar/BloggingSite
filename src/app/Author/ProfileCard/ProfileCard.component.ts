@@ -1,6 +1,8 @@
 import { Component, OnInit, DoCheck } from '@angular/core';
 import { AuthService } from 'src/services/Auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AddAuthorInformationComponent } from '../AddAuthorInformation/AddAuthorInformation.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-ProfileCard',
@@ -9,6 +11,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class ProfileCardComponent implements OnInit, DoCheck {
 
+
+  name: string;
 
   data = 'In Informatics, dummy data is benign information that does\
    not contain any useful data,\
@@ -27,7 +31,8 @@ export class ProfileCardComponent implements OnInit, DoCheck {
   constructor(
     private auth: AuthService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public dialog: MatDialog
   ) {
 
     if (this.router.url.endsWith('/author')) {
@@ -41,7 +46,6 @@ export class ProfileCardComponent implements OnInit, DoCheck {
 
   ngDoCheck() {
     const user = JSON.parse(localStorage.getItem('user'));
-
     if (this.router.url.endsWith('/author')) {
       if (!user) {
         this.router.navigate(['/']);
@@ -62,6 +66,7 @@ export class ProfileCardComponent implements OnInit, DoCheck {
 
   viewAuthorProfile() {
     // this.action = false;
+    // tslint:disable-next-line:no-string-literal
     if (this.route.snapshot.params['Id']) {
       this.appUserId = this.route.snapshot.paramMap.get('Id');
       // console.log('Auth Id', this.appUserId);
@@ -72,6 +77,19 @@ export class ProfileCardComponent implements OnInit, DoCheck {
     }
   }
 
+  addAuthorInformation() {
+    const dialogRef = this.dialog.open(AddAuthorInformationComponent, {
+      // width: '250px',
+      data: this.appUser
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      const userObj = JSON.parse(localStorage.getItem('user'));
+      this.auth.editUserData(userObj.uid, result);
+      // console.log('The dialog was closed', result);
+      // this.appUser = result;
+    });
+  }
 
   followMe() {
     const user = JSON.parse(localStorage.getItem('user'));
