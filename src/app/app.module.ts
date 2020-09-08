@@ -35,6 +35,7 @@ import { CommentsComponent } from './Blog/comments/comments.component';
 import { AddCommentsComponent } from './Blog/AddComments/AddComments.component';
 import { NgImageSliderModule } from 'ng-image-slider';
 import { AddAuthorInformationComponent } from './Author/AddAuthorInformation/AddAuthorInformation.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 firebase.initializeApp(environment.firebaseConfig);
 
@@ -73,7 +74,8 @@ firebase.initializeApp(environment.firebaseConfig);
     AngularFireMessagingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     JwtModule,
-    NgImageSliderModule
+    NgImageSliderModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   entryComponents: [AddCommentsComponent, AddAuthorInformationComponent],
   providers: [
