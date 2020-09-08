@@ -71,11 +71,6 @@ export class AuthService {
       name: user.displayName,
       email: user.email,
       photoURL: user.photoURL,
-      // about: 'Write Something About Yourself...',
-      // facebookURL: '',
-      // githubURL: '',
-      // linkedinURL: '',
-      // twitterURL: ''
     };
     return userRef.set(data, { merge: true });
   }
