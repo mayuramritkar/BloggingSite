@@ -3,38 +3,39 @@
 
     <mat-card-content>
       <span class="text-center">
-        <mat-card-title>Hi {{data.name}}</mat-card-title>
+        <mat-card-title>Hi {{userData.name}}</mat-card-title>
         <mat-card-subtitle>About You ?</mat-card-subtitle>
       </span>
 
       <!-- FadceBook URL -->
       <mat-form-field class="col-md-6 col-sm-6 col-xs-12" appearance="outline">
         <mat-label>Facebook URL</mat-label>
-        <input matInput [(ngModel)]="data.facebookURL" placeholder="Facebook URL">
+        <input matInput [(ngModel)]="userData.facebookURL" placeholder="Facebook URL">
       </mat-form-field>
 
       <!-- Twitter URL -->
       <mat-form-field class="col-md-6 col-sm-6 col-xs-12" appearance="outline">
         <mat-label>Twitter URL</mat-label>
-        <input matInput [(ngModel)]="data.twitterURL" placeholder="Twitter URL">
+        <input matInput [(ngModel)]="userData.twitterURL" placeholder="Twitter URL">
       </mat-form-field>
 
       <!-- Linkedin URL -->
       <mat-form-field class="col-md-6 col-sm-6 col-xs-12" appearance="outline">
         <mat-label>Linkedin URL</mat-label>
-        <input matInput [(ngModel)]="data.linkedinURL" placeholder="Linkedin URL">
+        <input matInput [(ngModel)]="userData.linkedinURL" placeholder="Linkedin URL">
       </mat-form-field>
 
       <!-- Github URL -->
       <mat-form-field class="col-md-6 col-sm-6 col-xs-12" appearance="outline">
         <mat-label>Github URL</mat-label>
-        <input matInput [(ngModel)]="data.githubURL" placeholder="Github URL">
+        <input matInput [(ngModel)]="userData.githubURL" placeholder="Github URL">
       </mat-form-field>
 
       <!-- About -->
       <mat-form-field class="col-12" appearance="outline">
         <mat-label>About</mat-label>
-        <textarea matInput placeholder="Comment" name="content" [(ngModel)]="data.about" rows="3" required></textarea>
+        <textarea matInput placeholder="Comment" name="content" [(ngModel)]="userData.about" rows="3"
+          required></textarea>
       </mat-form-field>
 
     </mat-card-content>
@@ -42,7 +43,7 @@
     <mat-divider></mat-divider>
     <mat-card-actions class="text-right">
       <button mat-button (click)="onNoClick()">No Thanks</button>
-      <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+      <button mat-button [mat-dialog-close]="userData" cdkFocusInitial>Ok</button>
     </mat-card-actions>
   </mat-card>
 </div>

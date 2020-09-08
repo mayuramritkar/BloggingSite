@@ -34,7 +34,6 @@ export class ProfileCardComponent implements OnInit, DoCheck {
     private route: ActivatedRoute,
     public dialog: MatDialog
   ) {
-
     if (this.router.url.endsWith('/author')) {
       this.action = false;
       this.auth.appUser$.subscribe(appUser => this.appUser = appUser);
@@ -78,16 +77,28 @@ export class ProfileCardComponent implements OnInit, DoCheck {
   }
 
   addAuthorInformation() {
+    const u = this.appUser;
     const dialogRef = this.dialog.open(AddAuthorInformationComponent, {
       // width: '250px',
-      data: this.appUser
+      hasBackdrop: false,
+      data: {
+        user: {
+          name: this.appUser.name,
+          about: this.appUser.about,
+          twitterURL: this.appUser.twitterURL,
+          facebookURL: this.appUser.facebookURL,
+          linkedinURL: this.appUser.linkedinURL,
+          githubURL: this.appUser.githubURL
+        }
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      const userObj = JSON.parse(localStorage.getItem('user'));
-      this.auth.editUserData(userObj.uid, result);
-      // console.log('The dialog was closed', result);
-      // this.appUser = result;
+      if (result !== undefined && result !== false) {
+        const Obj = { ...this.appUser, ...result };
+        const userObj = JSON.parse(localStorage.getItem('user'));
+        this.auth.editUserData(userObj.uid, Obj);
+      }
     });
   }
 
@@ -96,7 +107,7 @@ export class ProfileCardComponent implements OnInit, DoCheck {
     if (!user) {
       this.auth.login();
     } else {
-      // Operation of Follw People Write Here
+      // Operation of Follow People Write Here
     }
   }
 

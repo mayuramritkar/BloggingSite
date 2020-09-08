@@ -8,10 +8,12 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class AddAuthorInformationComponent implements OnInit {
 
+  userData: any;
   constructor(
     public dialogRef: MatDialogRef<AddAuthorInformationComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
+    this.userData = data.user;
     // console.log('Data open', data);
   }
 
@@ -19,7 +21,7 @@ export class AddAuthorInformationComponent implements OnInit {
   }
 
   onNoClick(): void {
-    this.dialogRef.close();
+    this.dialogRef.close(false);
   }
 
 }
