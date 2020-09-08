@@ -84,11 +84,11 @@ export class ProfileCardComponent implements OnInit, DoCheck {
       data: {
         user: {
           name: this.appUser.name,
-          about: this.appUser.about,
-          twitterURL: this.appUser.twitterURL,
-          facebookURL: this.appUser.facebookURL,
-          linkedinURL: this.appUser.linkedinURL,
-          githubURL: this.appUser.githubURL
+          about: this.appUser.about !== undefined ? this.appUser.about : 'Write Something About You...',
+          twitterURL: this.appUser.twitterURL !== undefined ? this.appUser.twitterURL : '',
+          facebookURL: this.appUser.facebookURL !== undefined ? this.appUser.facebookURL : '',
+          linkedinURL: this.appUser.linkedinURL !== undefined ? this.appUser.linkedinURL : '',
+          githubURL: this.appUser.githubURL !== undefined ? this.appUser.githubURL : ''
         }
       }
     });
