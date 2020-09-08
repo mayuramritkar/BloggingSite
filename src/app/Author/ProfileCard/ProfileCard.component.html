@@ -26,7 +26,7 @@
           Edit Data</mat-card-subtitle>
       </span>
       <p>
-        {{ appUser.about.length > 900 ?  appUser.about.substr(0,900)+' [...]' : appUser.about}}
+        {{ appUser.about !== undefined ? ( appUser.about.length > 900 ?  appUser.about.substr(0,900)+' [...]' : appUser.about ) : 'Write Something About You...'}}
       </p>
 
       <div style="float:right;">
